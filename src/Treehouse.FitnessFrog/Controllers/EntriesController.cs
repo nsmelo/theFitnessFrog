@@ -15,19 +15,21 @@ namespace Treehouse.FitnessFrog.Controllers
 
         public EntriesController() //the EntriesController constructor is instantiating an instance of the entriesRepository  class
         {
-            _entriesRepository = new EntriesRepository();  // wich we'll using throught this course to manage our data 
+            _entriesRepository = new EntriesRepository();  // wich we'll using throught this project to manage our data 
         }
 
         public ActionResult Index()
         {
-            List<Entry> entries = _entriesRepository.GetEntries();
+            List<Entry> entries = _entriesRepository.GetEntries(); // here were making a call to the repository to get the list of available entries
 
             // Calculate the total activity.
+            /* then we are using link to calculate the total activity by filtering out in the entries whose exclude properties are set to True and summing in the duration property values*/
             double totalActivity = entries
                 .Where(e => e.Exclude == false)
                 .Sum(e => e.Duration);
 
             // Determine the number of days that have entries.
+            /* in order to calculate the average daily activity we're getting the count of the disctinct entry values, which will later */
             int numberOfActiveDays = entries
                 .Select(e => e.Date)
                 .Distinct()
@@ -43,6 +45,11 @@ namespace Treehouse.FitnessFrog.Controllers
         {
             return View();
         }
+        [ActionName("Add") , HttpPost]
+        public ActionResult AddPost()
+        {
+            return View();
+        } 
 
         public ActionResult Edit(int? id) //The id parameter can have a value for nulle 
         {
