@@ -45,9 +45,13 @@ namespace Treehouse.FitnessFrog.Controllers
         {
             return View();
         }
-        [ActionName("Add") , HttpPost]
-        public ActionResult AddPost( string date , string activityId, string duration , string intensity , string exclude, string notes )
-        {
+        [ HttpPost]
+        public ActionResult Add( DateTime? date , int? activityId, double? duration , Entry.IntensityLevel? intensity , bool? exclude, string notes )
+        {   
+            /*
+             DateTime dataValue ;
+             DateTime.TryParse(date, out dateValue);
+             */
             // string date = Request.Form["Date"];  this a method for retrieve the data post in the form 
             ViewBag.Date = date;
             ViewBag.ActivityId = activityId;
