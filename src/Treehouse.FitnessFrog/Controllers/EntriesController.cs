@@ -45,14 +45,28 @@ namespace Treehouse.FitnessFrog.Controllers
         {
             return View();
         }
+        [ActionName("Add"),HttpPost]
+        public ActionResult AddPost( string date , string activityId , string duration , string intensity , string exclude , string notes)
+        {
+            //string date = Request.Form["date"];
+            ViewBag.Date = date;
+            ViewBag.ActivityId = activityId;
+            ViewBag.Duration = duration;
+            ViewBag.Intensity = intensity;
+            ViewBag.Exclude = exclude;
+            ViewBag.Notes = notes;
+            return View();
+        }
+        /*
         [ HttpPost]
         public ActionResult Add( DateTime? date , int? activityId, double? duration , Entry.IntensityLevel? intensity , bool? exclude, string notes )
         {   
-            /*
-             DateTime dataValue ;
-             DateTime.TryParse(date, out dateValue);
-             */
-            // string date = Request.Form["Date"];  this a method for retrieve the data post in the form 
+            
+             //DateTime dataValue ;
+             //DateTime.TryParse(date, out dateValue);
+
+             // string date = Request.Form["Date"];  this a method for retrieve the data post in the form 
+
             ViewBag.Date = date;
             ViewBag.ActivityId = activityId;
             ViewBag.Duration = duration;
@@ -62,7 +76,7 @@ namespace Treehouse.FitnessFrog.Controllers
 
 
             return View();
-        } 
+        } */
 
         public ActionResult Edit(int? id) //The id parameter can have a value for nulle 
         {
