@@ -1,39 +1,53 @@
-﻿
+﻿@model Treehouse.FitnessFrog.Models.Entry
+
 @{
     ViewBag.Title = "Add Entry";
+    /*
+    var selectListItems = new[]
+    {
+        new SelectListItem (){ Value = "1" ,Text="Item1" , Selected = false},
+        new SelectListItem (){ Value = "2" ,Text="Item2" , Selected = true},
+    }; */
+    /*
+    var items = new[]
+    {
+        new {Id =1 , Name ="Item 1"},
+        new {Id =2 , Name = "Item 2"}
+    };
+    var selectListItems = new SelectList(items , "Id " , "Name"); */
 }
 
 <h2>@ViewBag.Title</h2>
 
-<form method="post">
-
+@using (Html.BeginForm())
+{
     <div class="row">
 
         <div class="col-md-6">
 
             <div class="form-group">
-                <label for="Date" class="control-label">Date</label>
-                <input type="text" id="Date" name="Date" value="@ViewBag.Date" class="form-control" />
+                @Html.LabelFor(m => m.Date, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Date, "{0:d}", new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="ActivityId" class="control-label">Activity</label>
-                <input type="text" id="ActivityId" name="ActivityId" value="@ViewBag.ActivityId" class="form-control" />
+                @Html.LabelFor(m => m.ActivityId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.ActivityId, (SelectList)ViewBag.ActivitiesSelectListItems, "", new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Duration" class="control-label">Duration</label>
-                <input type="text" id="Duration" name="Duration" value="@ViewBag.Duration" class="form-control" />
+                @Html.LabelFor(m => m.Duration, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Duration, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Intensity" class="control-label">Intensity</label>
-                <input type="text" id="Intensity" name="Intensity" value="@ViewBag.Intensity" class="form-control" />
+                @Html.LabelFor(m => m.Intensity, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Intensity, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Exclude" class="control-label">Exclude</label>
-                <input type="text" id="Exclude" name="Exclude" value="@(ViewBag.Exclude != null ? ViewBag.Exclude.ToString() : " ") " class="form-control" />
+                @Html.LabelFor(m => m.Exclude, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Exclude, new { @class = "form-control" })
             </div>
 
         </div>
@@ -41,8 +55,8 @@
         <div class="col-md-6">
 
             <div class="form-group">
-                <label for="Notes" class="control-label">Notes</label>
-                <textarea id="Notes" name="Notes" value="@ViewBag.Notes" class="form-control" rows="14" cols="20"></textarea>
+                @Html.LabelFor(m => m.Notes, new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Notes, 14, 20, new { @class = "form-control" })
             </div>
 
         </div>
@@ -59,5 +73,4 @@
         </div>
 
     </div>
-
-</form>
+}

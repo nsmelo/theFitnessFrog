@@ -43,20 +43,68 @@ namespace Treehouse.FitnessFrog.Controllers
 
         public ActionResult Add()
         {
-            return View();
+            var entry = new Entry()
+            {
+                Date = DateTime.Today,
+                //ActivityId = 2,
+            };
+            ViewBag.ActivitiesSelectListItems = new SelectList(
+                                                                Data.Data.Activities, "Id", "Name");
+
+            return View(entry);
         }
-        [ActionName("Add"),HttpPost]
-        public ActionResult AddPost( string date , string activityId , string duration , string intensity , string exclude , string notes)
+        [HttpPost]
+        public ActionResult Add(Entry entry)
         {
-            //string date = Request.Form["date"];
-            ViewBag.Date = date;
-            ViewBag.ActivityId = activityId;
-            ViewBag.Duration = duration;
-            ViewBag.Intensity = intensity;
-            ViewBag.Exclude = exclude;
-            ViewBag.Notes = notes;
-            return View();
+            if (ModelState.IsValid)
+            {
+                _entriesRepository.AddEntry(entry);
+
+                // TODO Display the Entries list page
+                return RedirectToAction("index");
+            }
+            //entry.ActivityId = 2;  /*this reprsent model property*/
+            ViewBag.ActivitiesSelectListItems = new SelectList(
+                                                                Data.Data.Activities, "Id", "Name");
+            return View(entry); //  but the value of AcivityId in model state = 1 ( this return to choise of the user ) 
         }
+        
+
+        //[ActionName("Add"),HttpPost]
+        //public ActionResult AddPost( DateTime? date , int? activityId , double? duration , Entry.IntensityLevel? intensity , bool? exclude , string notes)
+        //{
+        //    return View();
+        //    //string date = Request.Form["date"];
+        //    /*
+             
+        //     DateTime dateValue;
+        //    DateTime.TryParse(date, out dateValue);
+
+        //    Int32 activityIdValue;
+        //    Int32.TryParse( activityId , out activityIdValue);
+
+        //    Int32 durationValue;
+        //    Int32.TryParse(duration, out durationValue);
+
+        //    Boolean excludeValue;
+        //    Boolean.TryParse( exclude , out excludeValue );
+
+        //    ViewBag.Date = dateValue;
+        //    ViewBag.ActivityId = activityIdValue;
+        //    ViewBag.Duration = durationValue;
+        //    ViewBag.Intensity = intensity;
+        //    ViewBag.Exclude = excludeValue;
+        //    ViewBag.Notes = notes;  
+        //                                         */
+
+        //    /* ViewBag.Date = ModelState["date"].Value.AttemptedValue;
+        //     ViewBag.ActivityId = ModelState["activityId"].Value.AttemptedValue;
+        //     ViewBag.Duration = ModelState["duration"].Value.AttemptedValue;
+        //     ViewBag.Intensity = ModelState["intensity"].Value.AttemptedValue;
+        //     ViewBag.Exclude = ModelState["exclude"].Value.AttemptedValue;
+        //     ViewBag.Notes = ModelState["notes"].Value.AttemptedValue; */
+              
+        //}  
         /*
         [ HttpPost]
         public ActionResult Add( DateTime? date , int? activityId, double? duration , Entry.IntensityLevel? intensity , bool? exclude, string notes )
