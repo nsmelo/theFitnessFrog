@@ -12,7 +12,7 @@ namespace Treehouse.FitnessFrog.Models
         /// The intensity level of the activity.
         /// </summary>
         public enum IntensityLevel
-        {
+        {   /// we can use a dropdown list for this field , but with only three possible values , it makes sense to use radio buttons
             Low,
             Medium,
             High
